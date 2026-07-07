@@ -1,0 +1,47 @@
+{
+  "app": {
+    "name": "ComuNick",
+    "loading": "Loading...",
+    "error": "Something went wrong. Please try again."
+  },
+  "grid": {
+    "empty": "Configure the board in admin mode",
+    "noCells": "Add cells in admin mode",
+    "tooLarge": "Grid too large. Reduce the number of cells."
+  },
+  "admin": {
+    "title": "Admin Mode",
+    "addCell": "Add Cell",
+    "removeCell": "Remove",
+    "editCell": "Edit",
+    "rows": "Rows",
+    "cols": "Columns",
+    "label": "Label",
+    "speech": "Speech text",
+    "searchImage": "Search image",
+    "searchPlaceholder": "Type to search pictograms...",
+    "noResults": "No pictograms found",
+    "save": "Save",
+    "cancel": "Cancel",
+    "boards": "Boards",
+    "newBoard": "New Board",
+    "deleteBoard": "Delete Board",
+    "confirmDelete": "Are you sure you want to delete this board?"
+  },
+  "settings": {
+    "language": "Language",
+    "ttsSpeed": "Speech speed",
+    "ttsPitch": "Speech pitch",
+    "about": "About",
+    "attribution": "Pictograms: ARASAAC (https://arasaac.org)"
+  },
+  "language": {
+    "pt-BR": "Português (Brasil)",
+    "en": "English",
+    "es": "Español"
+  },
+  "splash": {
+    "subtitle": "Alternative Communication",
+    "starting": "Starting..."
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "app": {
+    "name": "ComuNick",
+    "loading": "Cargando...",
+    "error": "Algo salió mal. Inténtalo de nuevo."
+  },
+  "grid": {
+    "empty": "Configura el tablero en modo admin",
+    "noCells": "Añade celdas en modo admin",
+    "tooLarge": "Cuadrícula demasiado grande. Reduce el número de celdas."
+  },
+  "admin": {
+    "title": "Modo Admin",
+    "addCell": "Añadir Celda",
+    "removeCell": "Eliminar",
+    "editCell": "Editar",
+    "rows": "Filas",
+    "cols": "Columnas",
+    "label": "Etiqueta",
+    "speech": "Texto del habla",
+    "searchImage": "Buscar imagen",
+    "searchPlaceholder": "Escribe para buscar pictogramas...",
+    "noResults": "No se encontraron pictogramas",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "boards": "Tableros",
+    "newBoard": "Nuevo Tablero",
+    "deleteBoard": "Eliminar Tablero",
+    "confirmDelete": "¿Estás seguro de que deseas eliminar este tablero?"
+  },
+  "settings": {
+    "language": "Idioma",
+    "ttsSpeed": "Velocidad del habla",
+    "ttsPitch": "Tono del habla",
+    "about": "Acerca de",
+    "attribution": "Pictogramas: ARASAAC (https://arasaac.org)"
+  },
+  "language": {
+    "pt-BR": "Português (Brasil)",
+    "en": "English",
+    "es": "Español"
+  },
+  "splash": {
+    "subtitle": "Comunicación Alternativa",
+    "starting": "Iniciando..."
+  }
+}

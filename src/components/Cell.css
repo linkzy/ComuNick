@@ -1,0 +1,44 @@
+.cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border: none;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  transition: transform 0.1s, opacity 0.1s;
+  min-height: 60px;
+  overflow: hidden;
+  font-family: inherit;
+}
+
+.cell:active {
+  transform: scale(0.95);
+  opacity: 0.85;
+}
+
+.cell-image {
+  max-width: 60%;
+  max-height: 60%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.cell-fallback {
+  font-size: 1.8rem;
+  font-weight: bold;
+  opacity: 0.6;
+}
+
+.cell-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.2;
+  word-break: break-word;
+}

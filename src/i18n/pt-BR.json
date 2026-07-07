@@ -1,0 +1,47 @@
+{
+  "app": {
+    "name": "ComuNick",
+    "loading": "Carregando...",
+    "error": "Algo deu errado. Tente novamente."
+  },
+  "grid": {
+    "empty": "Configure o board no modo admin",
+    "noCells": "Adicione células no modo admin",
+    "tooLarge": "Grid muito grande. Reduza o número de células."
+  },
+  "admin": {
+    "title": "Modo Admin",
+    "addCell": "Adicionar Célula",
+    "removeCell": "Remover",
+    "editCell": "Editar",
+    "rows": "Linhas",
+    "cols": "Colunas",
+    "label": "Rótulo",
+    "speech": "Texto da fala",
+    "searchImage": "Buscar imagem",
+    "searchPlaceholder": "Digite para buscar pictogramas...",
+    "noResults": "Nenhum pictograma encontrado",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "boards": "Pranchas",
+    "newBoard": "Nova Prancha",
+    "deleteBoard": "Excluir Prancha",
+    "confirmDelete": "Tem certeza que deseja excluir esta prancha?"
+  },
+  "settings": {
+    "language": "Idioma",
+    "ttsSpeed": "Velocidade da fala",
+    "ttsPitch": "Tom da fala",
+    "about": "Sobre",
+    "attribution": "Pictogramas: ARASAAC (https://arasaac.org)"
+  },
+  "language": {
+    "pt-BR": "Português (Brasil)",
+    "en": "English",
+    "es": "Español"
+  },
+  "splash": {
+    "subtitle": "Comunicação Alternativa",
+    "starting": "Iniciando..."
+  }
+}

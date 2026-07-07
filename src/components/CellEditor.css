@@ -1,0 +1,189 @@
+.cell-editor-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 16px;
+}
+
+.cell-editor {
+  background: #fff;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.cell-editor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border-bottom: 1px solid #ecf0f1;
+}
+
+.cell-editor-header h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.cell-editor-close {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 4px;
+  color: #7f8c8d;
+}
+
+.cell-editor-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cell-editor-body label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.cell-editor-body input[type="text"] {
+  padding: 8px 10px;
+  border: 1px solid #bdc3c7;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-family: inherit;
+}
+
+.cell-editor-body input[type="text"]:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.cell-editor-preview {
+  display: flex;
+  justify-content: center;
+  padding: 8px;
+  background: #f8f9fa;
+  border-radius: 6px;
+}
+
+.cell-editor-preview img {
+  max-width: 100px;
+  max-height: 100px;
+  object-fit: contain;
+}
+
+.cell-editor-colors {
+  display: flex;
+  gap: 16px;
+}
+
+.cell-editor-colors label {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  font-weight: normal;
+}
+
+.cell-editor-searching {
+  text-align: center;
+  color: #7f8c8d;
+  font-size: 0.85rem;
+  padding: 8px;
+}
+
+.cell-editor-results {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  padding: 8px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.cell-editor-result-item {
+  border: 2px solid transparent;
+  border-radius: 6px;
+  padding: 4px;
+  background: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cell-editor-result-item:hover {
+  border-color: #3498db;
+}
+
+.cell-editor-result-item.selected {
+  border-color: #2ecc71;
+  background: #e8f8f0;
+}
+
+.cell-editor-result-item img {
+  width: 100%;
+  max-width: 60px;
+  height: auto;
+  object-fit: contain;
+}
+
+.cell-editor-no-results {
+  text-align: center;
+  color: #95a5a6;
+  font-size: 0.85rem;
+  padding: 8px;
+}
+
+.cell-editor-colors input[type="color"] {
+  width: 40px;
+  height: 36px;
+  border: 1px solid #bdc3c7;
+  border-radius: 4px;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.cell-editor-footer {
+  display: flex;
+  gap: 8px;
+  padding: 16px;
+  border-top: 1px solid #ecf0f1;
+}
+
+.cell-editor-btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cell-editor-btn-save {
+  background: #2ecc71;
+  color: #fff;
+}
+
+.cell-editor-btn-cancel {
+  background: #95a5a6;
+  color: #fff;
+}
