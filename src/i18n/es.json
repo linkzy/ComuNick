@@ -30,6 +30,8 @@
   },
   "settings": {
     "language": "Idioma",
+    "ttsVoice": "Voz",
+    "ttsVoiceDefault": "Predeterminado del sistema",
     "ttsSpeed": "Velocidad del habla",
     "ttsPitch": "Tono del habla",
     "about": "Acerca de",

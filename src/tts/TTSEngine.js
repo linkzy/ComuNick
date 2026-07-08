@@ -4,12 +4,23 @@ class TTSEngine {
     this.speaking = false;
     this.rate = 1.0;
     this.pitch = 1.0;
+    this._voiceURI = null;
     this._utterance = null;
+    this._readyCallbacks = [];
+  }
+
+  onReady(callback) {
+    if (this.ready) {
+      callback();
+      return;
+    }
+    this._readyCallbacks.push(callback);
   }
 
   warmup() {
     if (this.ready) {
       console.log("[TTS] warmup skipped — already ready");
+      this._flushReady();
       return;
     }
 
@@ -17,6 +28,7 @@ class TTSEngine {
 
     if (!window.speechSynthesis) {
       console.warn("[TTS] speechSynthesis NOT available");
+      this._flushReady();
       return;
     }
 
@@ -26,6 +38,7 @@ class TTSEngine {
     if (voices.length > 0) {
       this.ready = true;
       console.log("[TTS] warmup complete —", voices.length, "voices loaded");
+      this._flushReady();
       return;
     }
 
@@ -35,7 +48,23 @@ class TTSEngine {
       console.log("[TTS] voiceschanged event — got", v.length, "voices");
       this.ready = true;
       speechSynthesis.onvoiceschanged = null;
+      this._flushReady();
     };
+  }
+
+  _flushReady() {
+    const cbs = this._readyCallbacks.slice();
+    this._readyCallbacks = [];
+    cbs.forEach((cb) => cb());
+  }
+
+  getVoices() {
+    if (!window.speechSynthesis) return [];
+    return speechSynthesis.getVoices();
+  }
+
+  setVoice(voiceURI) {
+    this._voiceURI = voiceURI;
   }
 
   speak(text) {
@@ -53,6 +82,15 @@ class TTSEngine {
     this._utterance = new SpeechSynthesisUtterance(text);
     this._utterance.rate = this.rate;
     this._utterance.pitch = this.pitch;
+
+    if (this._voiceURI) {
+      const voices = this.getVoices();
+      const match = voices.find((v) => v.voiceURI === this._voiceURI);
+      if (match) {
+        this._utterance.voice = match;
+        console.log("[TTS] using voice:", match.name);
+      }
+    }
 
     this._utterance.onstart = () => {
       console.log("[TTS] utterance onstart — speaking:", text);

@@ -8,6 +8,9 @@ export default defineConfig({
     VitePWA({
       registerType: "autoUpdate",
       includeAssets: ["icons/**/*"],
+      devOptions: {
+        enabled: true,
+      },
       manifest: {
         name: "ComuNick",
         short_name: "ComuNick",

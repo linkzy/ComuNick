@@ -1,12 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BoardProvider, useBoardContext } from "./stores/BoardContext";
 import { SettingsProvider } from "./stores/SettingsContext";
 import Grid from "./components/Grid";
 import AdminPanel from "./components/AdminPanel";
 import SplashScreen from "./components/SplashScreen";
-import LanguageSelector from "./components/LanguageSelector";
 import TTSEngine from "./tts/TTSEngine";
 import { useSettingsContext } from "./stores/SettingsContext";
+
+const TTS_TIMEOUT = 5000;
 
 function AdminToggle() {
   const { adminMode, dispatch } = useSettingsContext();
@@ -27,17 +28,24 @@ function AdminToggle() {
 
 function AppContent() {
   const { loading } = useBoardContext();
+  const [ttsReady, setTtsReady] = useState(false);
 
   useEffect(() => {
+    TTSEngine.onReady(() => setTtsReady(true));
     TTSEngine.warmup();
+
+    const timer = setTimeout(() => {
+      setTtsReady(true);
+    }, TTS_TIMEOUT);
+
+    return () => clearTimeout(timer);
   }, []);
 
-  if (loading) return <SplashScreen />;
+  if (loading || !ttsReady) return <SplashScreen />;
 
   return (
     <div className="app">
       <Grid />
-      <LanguageSelector />
       <AdminToggle />
       <AdminPanel />
     </div>

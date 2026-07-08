@@ -1,20 +1,22 @@
 .lang-selector {
-  position: fixed;
-  top: 8px;
-  right: 8px;
-  z-index: 600;
+  position: relative;
 }
 
 .lang-selector-btn {
-  padding: 4px 10px;
-  background: rgba(44, 62, 80, 0.85);
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  background: #f8f9fa;
+  color: #2c3e50;
+  border: 1px solid #bdc3c7;
+  border-radius: 6px;
+  font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
   touch-action: manipulation;
+  font-family: inherit;
 }
 
 .lang-selector-btn:active {
@@ -24,17 +26,20 @@
 .lang-selector-menu {
   position: absolute;
   top: 100%;
+  left: 0;
   right: 0;
   margin-top: 4px;
   background: #fff;
   border-radius: 6px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   overflow: hidden;
-  min-width: 160px;
+  z-index: 10;
 }
 
 .lang-selector-item {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   width: 100%;
   padding: 8px 14px;
   border: none;
@@ -57,4 +62,12 @@
 
 .lang-selector-item.active:hover {
   background: #2980b9;
+}
+
+.lang-flag {
+  width: 20px;
+  height: 15px;
+  border-radius: 2px;
+  object-fit: cover;
+  flex-shrink: 0;
 }
