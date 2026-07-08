@@ -60,21 +60,6 @@ function AdminPanel() {
     };
   }, [settingsDispatch]);
 
-  const handleTouchMove = useCallback(() => {
-    if (longPressTimer.current) {
-      clearTimeout(longPressTimer.current);
-      longPressTimer.current = null;
-    }
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      if (longPressTimer.current) {
-        clearTimeout(longPressTimer.current);
-      }
-    };
-  }, []);
-
   function handleAddBoard() {
     if (!newBoardName.trim()) return;
     dispatch({ type: "ADD_BOARD", payload: { name: newBoardName.trim() } });
