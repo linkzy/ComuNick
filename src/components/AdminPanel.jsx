@@ -4,35 +4,19 @@ import { useBoardContext } from "../stores/BoardContext";
 import { useSettingsContext } from "../stores/SettingsContext";
 import CellEditor from "./CellEditor";
 import LanguageSelector from "./LanguageSelector";
-import TTSEngine from "../tts/TTSEngine";
 import "./AdminPanel.css";
 
 const LONG_PRESS_MS = 5000;
 const REQUIRED_TOUCHES = 3;
-const APP_VERSION = "0.4.0";
+const APP_VERSION = "0.5.0";
 
 function AdminPanel() {
   const { t } = useTranslation();
   const { dispatch, boards, currentBoard, currentBoardId } = useBoardContext();
-  const settingsCtx = useSettingsContext();
-  const { adminMode, dispatch: settingsDispatch } = settingsCtx;
+  const { adminMode, dispatch: settingsDispatch } = useSettingsContext();
   const [editingCell, setEditingCell] = useState(null);
   const [showNewBoardInput, setShowNewBoardInput] = useState(false);
   const [newBoardName, setNewBoardName] = useState("");
-  const [voices, setVoices] = useState([]);
-
-  useEffect(() => {
-    function update() { setVoices(TTSEngine.getVoices()); }
-    update();
-    TTSEngine.onReady(update);
-    const id = setInterval(update, 2000);
-    return () => clearInterval(id);
-  }, []);
-
-  function handleVoiceChange(voiceURI) {
-    settingsDispatch({ type: "SET_TTS_VOICE", payload: voiceURI });
-    TTSEngine.setVoice(voiceURI);
-  }
 
   const longPressTimer = useRef(null);
   const touchCount = useRef(0);
@@ -158,32 +142,6 @@ function AdminPanel() {
         <div className="admin-section">
           <h3>{t("settings.language")}</h3>
           <LanguageSelector />
-        </div>
-
-        <div className="admin-section">
-          <h3>{t("settings.ttsVoice")}</h3>
-          <div className="admin-voice-row">
-            <select
-              className="admin-voice-select"
-              value={settingsCtx.ttsVoice || ""}
-              onChange={(e) => handleVoiceChange(e.target.value || null)}
-            >
-              <option value="">{t("settings.ttsVoiceDefault")}</option>
-              {voices.map((v) => (
-                <option key={v.voiceURI} value={v.voiceURI}>
-                  {v.name} ({v.lang})
-                </option>
-              ))}
-            </select>
-            <button
-              className="admin-voice-test"
-              onClick={() => TTSEngine.speak("Teste")}
-              aria-label="Testar voz"
-              title="Testar"
-            >
-              🔊
-            </button>
-          </div>
         </div>
 
         <div className="admin-section">

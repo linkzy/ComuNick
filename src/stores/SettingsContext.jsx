@@ -1,7 +1,6 @@
 import { createContext, useContext, useReducer, useEffect } from "react";
 import { getSettings, saveSettings } from "../db/operations";
 import i18n from "../i18n";
-import TTSEngine from "../tts/TTSEngine";
 
 const SettingsContext = createContext(null);
 
@@ -11,7 +10,6 @@ const initialSettings = {
   adminMode: false,
   ttsRate: 1.0,
   ttsPitch: 1.0,
-  ttsVoice: null,
   ttsProvider: "native",
   ttsExternalUrl: "",
   theme: "light",
@@ -33,8 +31,6 @@ function settingsReducer(state, action) {
       return { ...state, ttsRate: action.payload };
     case "SET_TTS_PITCH":
       return { ...state, ttsPitch: action.payload };
-    case "SET_TTS_VOICE":
-      return { ...state, ttsVoice: action.payload };
     case "SET_CURRENT_BOARD":
       return { ...state, currentBoardId: action.payload };
     default:
@@ -53,9 +49,6 @@ export function SettingsProvider({ children }) {
           dispatch({ type: "SET_SETTINGS", payload: settings });
           if (settings.lang) {
             i18n.changeLanguage(settings.lang);
-          }
-          if (settings.ttsVoice) {
-            TTSEngine.setVoice(settings.ttsVoice);
           }
         }
       } catch (e) {

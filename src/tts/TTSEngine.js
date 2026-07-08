@@ -1,10 +1,11 @@
+import i18n from "../i18n";
+
 class TTSEngine {
   constructor() {
     this.ready = false;
     this.speaking = false;
     this.rate = 1.0;
     this.pitch = 1.0;
-    this._voiceURI = null;
     this._utterance = null;
     this._readyCallbacks = [];
   }
@@ -63,10 +64,6 @@ class TTSEngine {
     return speechSynthesis.getVoices();
   }
 
-  setVoice(voiceURI) {
-    this._voiceURI = voiceURI;
-  }
-
   speak(text) {
     console.log("[TTS] speak() called with text:", JSON.stringify(text));
     console.log("[TTS] ready:", this.ready, "| speaking:", this.speaking);
@@ -83,13 +80,13 @@ class TTSEngine {
     this._utterance.rate = this.rate;
     this._utterance.pitch = this.pitch;
 
-    if (this._voiceURI) {
-      const voices = this.getVoices();
-      const match = voices.find((v) => v.voiceURI === this._voiceURI);
-      if (match) {
-        this._utterance.voice = match;
-        console.log("[TTS] using voice:", match.name);
-      }
+    const voices = this.getVoices();
+    const lang = (typeof i18n !== "undefined" && i18n.language) ? i18n.language : "pt-BR";
+    const prefix = lang.split("-")[0];
+    const match = voices.find((v) => v.lang && v.lang.startsWith(prefix));
+    if (match) {
+      this._utterance.voice = match;
+      console.log("[TTS] auto-select voice:", match.name, `(${match.lang})`);
     }
 
     this._utterance.onstart = () => {
