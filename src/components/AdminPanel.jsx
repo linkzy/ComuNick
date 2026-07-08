@@ -7,7 +7,7 @@ import "./AdminPanel.css";
 
 const LONG_PRESS_MS = 5000;
 const REQUIRED_TOUCHES = 3;
-const APP_VERSION = "0.2.0";
+const APP_VERSION = "0.3.0";
 
 function AdminPanel() {
   const { t } = useTranslation();
