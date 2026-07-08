@@ -45,6 +45,11 @@
   "cell": {
     "empty": "Empty"
   },
+  "installBanner": {
+    "message": "Install ComuNick for the best experience",
+    "install": "Install",
+    "dismiss": "Not now"
+  },
   "splash": {
     "subtitle": "Alternative Communication",
     "starting": "Starting..."

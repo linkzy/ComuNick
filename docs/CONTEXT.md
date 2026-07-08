@@ -8,20 +8,26 @@ The project was conceived by a web developer father for his non-verbal autistic 
 
 ## Current Status
 
-- [ ] Git repository initialized
-- [ ] README.md created
-- [ ] Documentation in /docs created
-- [ ] React + Vite project initialized
-- [ ] Directory structure created
-- [ ] IndexedDB schema implemented
-- [ ] Static 2×1 grid working (tested on target device)
-- [ ] TTS warmup implemented
-- [ ] Admin mode implemented
-- [ ] ARASAAC integration implemented
-- [ ] Multi-language configured
-- [ ] Admin mode tested by non-technical user
-- [ ] Responsive grid validated on different resolutions
-- [ ] Published via GitHub Pages / Vercel / Netlify
+All phases complete. App is deployed and functional at **https://comunick.linkzy.dev**.
+
+| Area | Status |
+|------|--------|
+| Git repo initialized and pushed to GitHub (private) | ✅ |
+| React + Vite scaffold | ✅ |
+| PWA with manifest + service worker (Workbox) | ✅ |
+| i18n (pt-BR, en, es) | ✅ |
+| IndexedDB schema + CRUD | ✅ |
+| Grid + Cells with touch feedback | ✅ |
+| TTS with warmup + auto voice by language | ✅ |
+| Admin mode (3-finger 5s long press) | ✅ |
+| ARASAAC pictogram search + cache | ✅ |
+| Multi-language with flags | ✅ |
+| Splash screen | ✅ |
+| Cell editor (label, speech, colors, ARASAAC) | ✅ |
+| Responsive grid (rows/cols 1–12) | ✅ |
+| Deployed via Docker + GitHub Actions | ✅ |
+| Accessible (focus-visible, aria-labels) | ✅ |
+| Voice auto-selects when language changes | ✅ |
 
 ## Architectural Decisions
 
@@ -44,6 +50,15 @@ The project was conceived by a web developer father for his non-verbal autistic 
 - **Performance on entry-level devices is a priority.** The app must run smoothly on a $100 Android phone.
 - **Each board is an independent entity.** The speech therapist can create multiple boards for the same child.
 - **Zero crash tolerance in user mode.** Admin mode may have bugs, but user mode (child using it) must be rock solid.
+
+## Future Ideas (not yet planned)
+
+- External TTS provider (ElevenLabs, Google Cloud)
+- Export/import boards (JSON backup)
+- Navigation between boards (cell opens another board)
+- Sentence bar (accumulate cells, speak as phrase)
+- High-contrast theme
+- LRU eviction for pictogram cache
 
 ## Glossary
 

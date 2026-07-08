@@ -4,6 +4,7 @@ import { SettingsProvider } from "./stores/SettingsContext";
 import Grid from "./components/Grid";
 import AdminPanel from "./components/AdminPanel";
 import SplashScreen from "./components/SplashScreen";
+import InstallBanner from "./components/InstallBanner";
 import TTSEngine from "./tts/TTSEngine";
 import { useSettingsContext } from "./stores/SettingsContext";
 
@@ -45,6 +46,7 @@ function AppContent() {
 
   return (
     <div className="app">
+      <InstallBanner />
       <Grid />
       <AdminToggle />
       <AdminPanel />
