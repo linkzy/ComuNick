@@ -7,6 +7,7 @@ function Cell({ cell }) {
   const { t } = useTranslation();
   const { speak } = useTTS();
   const [imgError, setImgError] = useState(false);
+  const [pressed, setPressed] = useState(false);
   const lastTap = useRef(0);
 
   const handleTap = useCallback(() => {
@@ -22,8 +23,11 @@ function Cell({ cell }) {
 
   return (
     <button
-      className="cell"
+      className={`cell${pressed ? " cell-pressed" : ""}`}
       onClick={handleTap}
+      onTouchStart={() => setPressed(true)}
+      onTouchEnd={() => setPressed(false)}
+      onTouchMove={() => setPressed(false)}
       aria-label={ariaLabel}
       style={{
         backgroundColor: cell.backgroundColor || "#2c3e50",

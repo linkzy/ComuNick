@@ -22,6 +22,11 @@
   opacity: 0.85;
 }
 
+.cell-pressed {
+  transform: scale(0.95);
+  opacity: 0.85;
+}
+
 .cell:focus-visible {
   outline: 3px solid #3498db;
   outline-offset: 2px;

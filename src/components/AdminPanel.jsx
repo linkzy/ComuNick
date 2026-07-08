@@ -1,14 +1,13 @@
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useBoardContext } from "../stores/BoardContext";
 import { useSettingsContext } from "../stores/SettingsContext";
 import CellEditor from "./CellEditor";
 import "./AdminPanel.css";
 
-const APP_VERSION = "0.1.0";
-
 const LONG_PRESS_MS = 5000;
 const REQUIRED_TOUCHES = 3;
+const APP_VERSION = "0.1.0";
 
 function AdminPanel() {
   const { t } = useTranslation();
@@ -21,8 +20,8 @@ function AdminPanel() {
   const longPressTimer = useRef(null);
   const touchCount = useRef(0);
 
-  const handleTouchStart = useCallback(
-    (e) => {
+  useEffect(() => {
+    function handleTouchStart(e) {
       touchCount.current = e.touches.length;
       if (e.touches.length >= REQUIRED_TOUCHES) {
         longPressTimer.current = setTimeout(() => {
@@ -30,17 +29,36 @@ function AdminPanel() {
           touchCount.current = 0;
         }, LONG_PRESS_MS);
       }
-    },
-    [settingsDispatch]
-  );
-
-  const handleTouchEnd = useCallback(() => {
-    if (longPressTimer.current) {
-      clearTimeout(longPressTimer.current);
-      longPressTimer.current = null;
     }
-    touchCount.current = 0;
-  }, []);
+
+    function handleTouchEnd() {
+      if (longPressTimer.current) {
+        clearTimeout(longPressTimer.current);
+        longPressTimer.current = null;
+      }
+      touchCount.current = 0;
+    }
+
+    function handleTouchMove() {
+      if (longPressTimer.current) {
+        clearTimeout(longPressTimer.current);
+        longPressTimer.current = null;
+      }
+    }
+
+    document.addEventListener("touchstart", handleTouchStart, { passive: true });
+    document.addEventListener("touchend", handleTouchEnd);
+    document.addEventListener("touchmove", handleTouchMove);
+
+    return () => {
+      document.removeEventListener("touchstart", handleTouchStart);
+      document.removeEventListener("touchend", handleTouchEnd);
+      document.removeEventListener("touchmove", handleTouchMove);
+      if (longPressTimer.current) {
+        clearTimeout(longPressTimer.current);
+      }
+    };
+  }, [settingsDispatch]);
 
   const handleTouchMove = useCallback(() => {
     if (longPressTimer.current) {
@@ -120,25 +138,10 @@ function AdminPanel() {
     dispatch({ type: "REORDER_CELLS", payload: order });
   }
 
-  if (!adminMode) {
-    return (
-      <div
-        className="admin-gesture-overlay"
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-        onTouchMove={handleTouchMove}
-      />
-    );
-  }
+  if (!adminMode) return null;
 
   return (
     <>
-      <div
-        className="admin-gesture-overlay"
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-        onTouchMove={handleTouchMove}
-      />
       <div className="admin-panel">
         <div className="admin-header">
           <h2>{t("admin.title")}</h2>
