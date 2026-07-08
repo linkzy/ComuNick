@@ -1,0 +1,60 @@
+.lang-selector {
+  position: fixed;
+  top: 8px;
+  right: 8px;
+  z-index: 600;
+}
+
+.lang-selector-btn {
+  padding: 4px 10px;
+  background: rgba(44, 62, 80, 0.85);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.lang-selector-btn:active {
+  opacity: 0.7;
+}
+
+.lang-selector-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 4px;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  min-width: 160px;
+}
+
+.lang-selector-item {
+  display: block;
+  width: 100%;
+  padding: 8px 14px;
+  border: none;
+  background: none;
+  text-align: left;
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.lang-selector-item:hover {
+  background: #f0f0f0;
+}
+
+.lang-selector-item.active {
+  background: #3498db;
+  color: #fff;
+  font-weight: 600;
+}
+
+.lang-selector-item.active:hover {
+  background: #2980b9;
+}

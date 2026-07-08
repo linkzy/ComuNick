@@ -46,6 +46,14 @@ body {
   touch-action: manipulation;
 }
 
-.admin-toggle-btn:active {
-  transform: scale(0.92);
+.admin-toggle-btn:focus-visible {
+  outline: 3px solid #3498db;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -1,7 +1,9 @@
-import { BoardProvider } from "./stores/BoardContext";
+import { BoardProvider, useBoardContext } from "./stores/BoardContext";
 import { SettingsProvider } from "./stores/SettingsContext";
 import Grid from "./components/Grid";
 import AdminPanel from "./components/AdminPanel";
+import SplashScreen from "./components/SplashScreen";
+import LanguageSelector from "./components/LanguageSelector";
 import { useSettingsContext } from "./stores/SettingsContext";
 
 function AdminToggle() {
@@ -22,9 +24,14 @@ function AdminToggle() {
 }
 
 function AppContent() {
+  const { loading } = useBoardContext();
+
+  if (loading) return <SplashScreen />;
+
   return (
     <div className="app">
       <Grid />
+      <LanguageSelector />
       <AdminToggle />
       <AdminPanel />
     </div>
