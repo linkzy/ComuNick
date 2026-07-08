@@ -5,6 +5,8 @@ import { useSettingsContext } from "../stores/SettingsContext";
 import CellEditor from "./CellEditor";
 import "./AdminPanel.css";
 
+const APP_VERSION = "0.1.0";
+
 const LONG_PRESS_MS = 5000;
 const REQUIRED_TOUCHES = 3;
 
@@ -283,6 +285,8 @@ function AdminPanel() {
             </div>
           </>
         )}
+
+        <div className="admin-footer">v{APP_VERSION}</div>
       </div>
 
       {editingCell && currentBoard?.cells[editingCell] && (

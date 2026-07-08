@@ -265,3 +265,12 @@
   font-size: 0.75rem;
   white-space: nowrap;
 }
+
+.admin-footer {
+  margin-top: auto;
+  padding: 10px 16px;
+  text-align: center;
+  font-size: 0.75rem;
+  color: #95a5a6;
+  border-top: 1px solid #ecf0f1;
+}

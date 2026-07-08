@@ -1,9 +1,11 @@
+import { useEffect } from "react";
 import { BoardProvider, useBoardContext } from "./stores/BoardContext";
 import { SettingsProvider } from "./stores/SettingsContext";
 import Grid from "./components/Grid";
 import AdminPanel from "./components/AdminPanel";
 import SplashScreen from "./components/SplashScreen";
 import LanguageSelector from "./components/LanguageSelector";
+import TTSEngine from "./tts/TTSEngine";
 import { useSettingsContext } from "./stores/SettingsContext";
 
 function AdminToggle() {
@@ -25,6 +27,10 @@ function AdminToggle() {
 
 function AppContent() {
   const { loading } = useBoardContext();
+
+  useEffect(() => {
+    TTSEngine.warmup();
+  }, []);
 
   if (loading) return <SplashScreen />;
 
