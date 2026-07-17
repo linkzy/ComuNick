@@ -6,8 +6,7 @@ COPY . .
 RUN npm run build
 
 FROM nginx:stable-alpine AS runner
-ARG TTS_API_KEY=placeholder
-ENV TTS_API_KEY=${TTS_API_KEY}
+RUN apk add --no-cache gettext
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /app/dist /usr/share/nginx/html
 EXPOSE 80
