@@ -6,7 +6,9 @@ COPY . .
 RUN npm run build
 
 FROM nginx:stable-alpine AS runner
+ARG TTS_API_KEY=placeholder
+ENV TTS_API_KEY=${TTS_API_KEY}
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /app/dist /usr/share/nginx/html
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+CMD sh -c "envsubst '\${TTS_API_KEY}' < /etc/nginx/conf.d/default.conf > /tmp/default.conf && mv /tmp/default.conf /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"

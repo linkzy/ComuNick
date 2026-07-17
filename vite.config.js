@@ -51,4 +51,16 @@ export default defineConfig({
       },
     }),
   ],
+  server: {
+    proxy: {
+      "/api/tts": {
+        target: "https://narrator-tts.linkzy.dev",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/tts/, ""),
+        headers: {
+          "X-API-Key": process.env.TTS_API_KEY || "",
+        },
+      },
+    },
+  },
 });

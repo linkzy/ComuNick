@@ -1,5 +1,4 @@
-const API_BASE = "https://narrator-tts.linkzy.dev";
-const API_KEY = "!@34Hbdt";
+const API_BASE = "/api/tts";
 
 export async function generateAudio(text, options = {}) {
   const { speaking_rate, voice_name, return_format = "mp3" } = options;
@@ -13,10 +12,7 @@ export async function generateAudio(text, options = {}) {
 
   const res = await fetch(`${API_BASE}/synthesize`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-API-Key": API_KEY,
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
   });
 
@@ -26,14 +22,4 @@ export async function generateAudio(text, options = {}) {
   }
 
   return res.blob();
-}
-
-export async function checkStatus() {
-  const res = await fetch(`${API_BASE}/status`, {
-    headers: { "X-API-Key": API_KEY },
-  });
-
-  if (!res.ok) throw new Error(`Status API error ${res.status}`);
-
-  return res.json();
 }
