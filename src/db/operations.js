@@ -58,6 +58,31 @@ export async function clearPictogramCache() {
   return db.clear("pictograms_cache");
 }
 
+export async function getAudioCache(key) {
+  const db = await getDb();
+  return db.get("audio_cache", key);
+}
+
+export async function saveAudioCache(key, audioBlob, text) {
+  const db = await getDb();
+  return db.put("audio_cache", {
+    id: key,
+    audio: audioBlob,
+    text,
+    createdAt: Date.now(),
+  });
+}
+
+export async function deleteAudioCache(key) {
+  const db = await getDb();
+  return db.delete("audio_cache", key);
+}
+
+export async function clearAudioCache() {
+  const db = await getDb();
+  return db.clear("audio_cache");
+}
+
 export async function exportAllData() {
   const db = await getDb();
   const boards = await db.getAll("boards");

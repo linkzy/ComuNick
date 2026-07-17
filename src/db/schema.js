@@ -1,7 +1,7 @@
 import { openDB } from "idb";
 
 const DB_NAME = "comunick";
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 
 export async function openDatabase() {
   return openDB(DB_NAME, DB_VERSION, {
@@ -10,6 +10,9 @@ export async function openDatabase() {
         db.createObjectStore("boards", { keyPath: "id" });
         db.createObjectStore("settings", { keyPath: "id" });
         db.createObjectStore("pictograms_cache", { keyPath: "imageId" });
+      }
+      if (oldVersion < 2) {
+        db.createObjectStore("audio_cache", { keyPath: "id" });
       }
     },
   });

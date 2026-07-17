@@ -1,10 +1,15 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useBoardContext } from "../stores/BoardContext";
 import { searchPictograms, getPictogramUrl, downloadAndCachePictogram } from "../services/arasaac";
+import { generateAudio } from "../services/ttsApi";
+import { saveAudioCache } from "../db/operations";
+import LoaderOverlay from "./LoaderOverlay";
 import "./CellEditor.css";
 
 function CellEditor({ cell, onSave, onClose }) {
   const { t, i18n } = useTranslation();
+  const { currentBoard } = useBoardContext();
   const [label, setLabel] = useState(cell.label || "");
   const [speech, setSpeech] = useState(cell.speech || "");
   const [backgroundColor, setBackgroundColor] = useState(
@@ -16,6 +21,7 @@ function CellEditor({ cell, onSave, onClose }) {
   const [searchResults, setSearchResults] = useState([]);
   const [searching, setSearching] = useState(false);
   const [selectedImageId, setSelectedImageId] = useState(null);
+  const [generating, setGenerating] = useState(false);
 
   const searchTimer = useRef(null);
 
@@ -51,7 +57,21 @@ function CellEditor({ cell, onSave, onClose }) {
     setSearchResults([]);
   }
 
-  function handleSave() {
+  async function handleSave() {
+    const text = speech || label;
+    const cellKey = currentBoard ? `audio:${currentBoard.id}:${cell.id}` : null;
+
+    setGenerating(true);
+    try {
+      if (cellKey && text && text.trim()) {
+        const blob = await generateAudio(text);
+        await saveAudioCache(cellKey, blob, text);
+      }
+    } catch (e) {
+      console.warn("[CellEditor] audio generation failed (will be generated on first tap):", e);
+    }
+    setGenerating(false);
+
     onSave({
       label,
       speech,
@@ -63,7 +83,9 @@ function CellEditor({ cell, onSave, onClose }) {
   }
 
   return (
-    <div className="cell-editor-overlay" onClick={onClose}>
+    <>
+      {generating && <LoaderOverlay message={t("app.loading")} />}
+      <div className="cell-editor-overlay" onClick={onClose}>
       <div className="cell-editor" onClick={(e) => e.stopPropagation()}>
         <div className="cell-editor-header">
           <h3>{t("admin.editCell")}</h3>
@@ -165,6 +187,7 @@ function CellEditor({ cell, onSave, onClose }) {
         </div>
       </div>
     </div>
+    </>
   );
 }
 
