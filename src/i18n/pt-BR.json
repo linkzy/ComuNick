@@ -34,6 +34,8 @@
     "ttsVoiceDefault": "Padrão do sistema",
     "ttsSpeed": "Velocidade da fala",
     "ttsPitch": "Tom da fala",
+    "ttsProvider": "Motor de voz",
+    "ttsNative": "TTS nativo",
     "about": "Sobre",
     "attribution": "Pictogramas: ARASAAC (https://arasaac.org)"
   },

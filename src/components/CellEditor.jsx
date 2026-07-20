@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useBoardContext } from "../stores/BoardContext";
+import { useSettingsContext } from "../stores/SettingsContext";
 import { searchPictograms, getPictogramUrl, downloadAndCachePictogram } from "../services/arasaac";
 import { generateAudio } from "../services/ttsApi";
 import { saveAudioCache } from "../db/operations";
@@ -10,6 +11,7 @@ import "./CellEditor.css";
 function CellEditor({ cell, onSave, onClose }) {
   const { t, i18n } = useTranslation();
   const { currentBoard } = useBoardContext();
+  const { ttsProvider } = useSettingsContext();
   const [label, setLabel] = useState(cell.label || "");
   const [speech, setSpeech] = useState(cell.speech || "");
   const [backgroundColor, setBackgroundColor] = useState(
@@ -61,16 +63,16 @@ function CellEditor({ cell, onSave, onClose }) {
     const text = speech || label;
     const cellKey = currentBoard ? `audio:${currentBoard.id}:${cell.id}` : null;
 
-    setGenerating(true);
-    try {
-      if (cellKey && text && text.trim()) {
+    if (ttsProvider === "narrator" && cellKey && text && text.trim()) {
+      setGenerating(true);
+      try {
         const blob = await generateAudio(text);
         await saveAudioCache(cellKey, blob, text);
+      } catch (e) {
+        console.warn("[CellEditor] audio generation failed (will be generated on first tap):", e);
       }
-    } catch (e) {
-      console.warn("[CellEditor] audio generation failed (will be generated on first tap):", e);
+      setGenerating(false);
     }
-    setGenerating(false);
 
     onSave({
       label,

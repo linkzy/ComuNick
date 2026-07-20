@@ -34,6 +34,8 @@
     "ttsVoiceDefault": "System default",
     "ttsSpeed": "Speech speed",
     "ttsPitch": "Speech pitch",
+    "ttsProvider": "Voice engine",
+    "ttsNative": "Native TTS",
     "about": "About",
     "attribution": "Pictograms: ARASAAC (https://arasaac.org)"
   },

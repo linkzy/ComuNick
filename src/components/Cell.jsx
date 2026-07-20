@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useBoardContext } from "../stores/BoardContext";
+import { useSettingsContext } from "../stores/SettingsContext";
 import { getAudioCache, saveAudioCache } from "../db/operations";
 import { generateAudio } from "../services/ttsApi";
 import { playAudioBlob } from "../services/audioPlayer";
@@ -11,6 +12,7 @@ import "./Cell.css";
 function Cell({ cell }) {
   const { t } = useTranslation();
   const { currentBoard } = useBoardContext();
+  const { ttsProvider } = useSettingsContext();
   const { speak } = useTTS();
   const [imgError, setImgError] = useState(false);
   const [pressed, setPressed] = useState(false);
@@ -25,10 +27,15 @@ function Cell({ cell }) {
     if (now - lastTap.current < 500) return;
     lastTap.current = now;
 
-    if (generatingRef.current || !cellKey) return;
-
     const text = cell.speech || cell.label;
     if (!text || !text.trim()) return;
+
+    if (ttsProvider === "native") {
+      speak(text);
+      return;
+    }
+
+    if (generatingRef.current || !cellKey) return;
 
     try {
       const cached = await getAudioCache(cellKey);
@@ -55,7 +62,7 @@ function Cell({ cell }) {
       setGenerating(false);
       speak(text);
     }
-  }, [cellKey, cell.speech, cell.label, speak]);
+  }, [cellKey, cell.speech, cell.label, speak, ttsProvider]);
 
   const ariaLabel = `${
     cell.label || t("cell.empty")

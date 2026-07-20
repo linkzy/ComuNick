@@ -53,7 +53,17 @@
   letter-spacing: 0.5px;
 }
 
-.admin-board-list {
+.admin-select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #bdc3c7;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  background: #f8f9fa;
+  color: #2c3e50;
+  cursor: pointer;
+}.admin-board-list {
   display: flex;
   flex-direction: column;
   gap: 4px;

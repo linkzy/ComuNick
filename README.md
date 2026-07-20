@@ -19,24 +19,42 @@ The name comes from **Comu**nication + **Nick** (my son's nickname, who inspired
 ## Main Features
 
 - **Fully customizable pictogram grid** (rows × columns defined by the therapist)
-- **Native browser Text-to-Speech (TTS)** when tapping each cell, voice auto-selects by language
+- **Two TTS engines:** native browser TTS (default, works offline) or Narrator TTS API (higher quality, requires internet + API key)
 - **Admin mode** for professionals to set up the board (accessible via 3-finger 5-second long press)
 - **Multi-language** (pt-BR, en, es) — switch anytime, voice updates automatically
 - **100% offline** — after loading pictograms, works without internet (PWA + IndexedDB)
 - **ARASAAC integration** — free, standardized pictograms from the largest AAC symbol library
+- **Audio caching** — generated speech from Narrator TTS is cached in IndexedDB for repeat playback
 - **No costs, no subscription, no app stores**
+- **PWA installable** — add to home screen, hides system nav bar in fullscreen mode
 
 ## Technologies
 
-| Layer          | Technology        |
-|---------------|-------------------|
-| Interface     | React 18 + Vite   |
-| PWA           | vite-plugin-pwa    |
-| Persistence   | IndexedDB (idb)   |
-| Internationalization | i18next    |
-| Voice         | Web Speech API    |
-| Pictograms    | ARASAAC API       |
-| Deployment    | Docker + GitHub Actions |
+| Layer                | Technology                          |
+|----------------------|-------------------------------------|
+| Interface            | React 18 + Vite                     |
+| PWA                  | vite-plugin-pwa                     |
+| Persistence          | IndexedDB (idb)                     |
+| Internationalization | i18next                             |
+| Voice (native)       | Web Speech API                      |
+| Voice (premium)      | Narrator TTS API (proxy via nginx)  |
+| Pictograms           | ARASAAC API                         |
+| Deployment           | Docker + GitHub Actions (GHCR)      |
+| Icons                | sharp-generated custom icon         |
+
+## Architecture
+
+```
+Client (PWA) ──► /api/tts/synthesize ──► nginx proxy ──► Narrator TTS API
+                     (no API key)         (adds X-API-Key)
+```
+
+The API key is set as an environment variable at container runtime — never in client-side JavaScript or Docker image layers.
+
+## Attribution
+
+- **Pictograms:** ARASAAC (https://arasaac.org) — CC BY-NC-SA 4.0
+- **TTS:** Web Speech API (native) and Narrator TTS API
 
 ## License
 

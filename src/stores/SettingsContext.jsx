@@ -31,6 +31,8 @@ function settingsReducer(state, action) {
       return { ...state, ttsRate: action.payload };
     case "SET_TTS_PITCH":
       return { ...state, ttsPitch: action.payload };
+    case "SET_TTS_PROVIDER":
+      return { ...state, ttsProvider: action.payload };
     case "SET_CURRENT_BOARD":
       return { ...state, currentBoardId: action.payload };
     default:

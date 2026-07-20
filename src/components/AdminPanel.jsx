@@ -13,7 +13,7 @@ const APP_VERSION = "0.5.0";
 function AdminPanel() {
   const { t } = useTranslation();
   const { dispatch, boards, currentBoard, currentBoardId } = useBoardContext();
-  const { adminMode, dispatch: settingsDispatch } = useSettingsContext();
+  const { adminMode, dispatch: settingsDispatch, ttsProvider } = useSettingsContext();
   const [editingCell, setEditingCell] = useState(null);
   const [showNewBoardInput, setShowNewBoardInput] = useState(false);
   const [newBoardName, setNewBoardName] = useState("");
@@ -142,6 +142,20 @@ function AdminPanel() {
         <div className="admin-section">
           <h3>{t("settings.language")}</h3>
           <LanguageSelector />
+        </div>
+
+        <div className="admin-section">
+          <h3>{t("settings.ttsProvider")}</h3>
+          <select
+            className="admin-select"
+            value={ttsProvider}
+            onChange={(e) =>
+              settingsDispatch({ type: "SET_TTS_PROVIDER", payload: e.target.value })
+            }
+          >
+            <option value="native">{t("settings.ttsNative")}</option>
+            <option value="narrator">Narrator TTS</option>
+          </select>
         </div>
 
         <div className="admin-section">
